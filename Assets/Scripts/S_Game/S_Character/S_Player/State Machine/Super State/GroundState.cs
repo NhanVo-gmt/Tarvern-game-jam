@@ -37,10 +37,6 @@ public class GroundState : State
         {
             stateMachine.ChangeState(player.dashState);
         }
-        else if (player.inputManager.meleeAttackInput && player.meleeAttackState.CanAttack())
-        {
-            stateMachine.ChangeState(player.meleeAttackState);
-        }
     }
 
     public override void PhysicsUpdate()

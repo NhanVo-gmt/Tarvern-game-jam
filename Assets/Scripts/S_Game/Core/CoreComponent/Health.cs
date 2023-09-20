@@ -19,6 +19,7 @@ public class Health : CoreComponent
     
     public void SetHealth(HealthData data)
     {
+        isDie = false;
         health = data.health;
         onUpdateHealth?.Invoke(health);
     }
@@ -65,4 +66,5 @@ public class Health : CoreComponent
         isDie = true;
         onDie?.Invoke();
     }
+
 }
