@@ -178,7 +178,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gizmos Drawing Tree
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7589339910832859475, guid: f2203dadf689f904e9363c4402614587, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f2203dadf689f904e9363c4402614587, type: 3}
 --- !u!1001 &168260144
 PrefabInstance:
@@ -339,14 +340,58 @@ PrefabInstance:
     - target: {fileID: 418060147972237163, guid: 4122d86b82cec484898a4764b72a4c5e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 9221460682554506411, guid: 1da6818634edf9a44a7c01cb0122b43b, type: 3}
     - target: {fileID: 418060147972237163, guid: 4122d86b82cec484898a4764b72a4c5e, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 717623647653430144, guid: 4122d86b82cec484898a4764b72a4c5e, type: 3}
+      propertyPath: m_Size.x
+      value: 0.8108914
+      objectReference: {fileID: 0}
+    - target: {fileID: 717623647653430144, guid: 4122d86b82cec484898a4764b72a4c5e, type: 3}
+      propertyPath: m_Size.y
+      value: 0.81568897
+      objectReference: {fileID: 0}
+    - target: {fileID: 717623647653430144, guid: 4122d86b82cec484898a4764b72a4c5e, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.020482063
+      objectReference: {fileID: 0}
+    - target: {fileID: 717623647653430144, guid: 4122d86b82cec484898a4764b72a4c5e, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.059328422
+      objectReference: {fileID: 0}
+    - target: {fileID: 2420242968278854234, guid: 4122d86b82cec484898a4764b72a4c5e, type: 3}
+      propertyPath: m_Mass
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 2420242968278854234, guid: 4122d86b82cec484898a4764b72a4c5e, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2420242968278854234, guid: 4122d86b82cec484898a4764b72a4c5e, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2420242968278854234, guid: 4122d86b82cec484898a4764b72a4c5e, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4158247499319465745, guid: 4122d86b82cec484898a4764b72a4c5e, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 3a75539c7cfa9fd47911b4172cb41949, type: 2}
     - target: {fileID: 6414891080714855854, guid: 4122d86b82cec484898a4764b72a4c5e, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7450668831861696816, guid: 4122d86b82cec484898a4764b72a4c5e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.008
+      objectReference: {fileID: 0}
+    - target: {fileID: 7450668831861696816, guid: 4122d86b82cec484898a4764b72a4c5e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7502696316525358248, guid: 4122d86b82cec484898a4764b72a4c5e, type: 3}
       propertyPath: m_Name

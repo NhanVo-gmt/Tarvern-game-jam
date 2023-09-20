@@ -25,7 +25,7 @@ public class Player : SingletonObject<Player>
     int hitId = Animator.StringToHash("Hit");
     int jumpId = Animator.StringToHash("Jump");
     int meleeAttackId = Animator.StringToHash("Melee Attack");
-    int moveId = Animator.StringToHash("Move");
+    int moveId = Animator.StringToHash("Run");
 
     #endregion
 
