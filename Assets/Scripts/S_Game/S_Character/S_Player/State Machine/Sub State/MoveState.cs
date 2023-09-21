@@ -41,6 +41,6 @@ public class MoveState : GroundState
 
     void Move() 
     {
-        movement.SetVelocityX(player.inputManager.movementInput.x * data.moveData.velocity);
+        movement.SetVelocity(player.inputManager.movementInput * data.moveData.velocity);
     }
 }

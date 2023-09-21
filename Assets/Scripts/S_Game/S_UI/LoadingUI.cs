@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class LoadingUI : MonoBehaviour
 {
-    [SerializeField] GameObject loadingScreen;
     [SerializeField] Slider slider;
 
     CanvasGroup canvasGroup;
@@ -15,14 +14,28 @@ public class LoadingUI : MonoBehaviour
     bool isLoading;
 
     void Awake() {
-        canvasGroup = loadingScreen.GetComponent<CanvasGroup>();
+        canvasGroup = GetComponent<CanvasGroup>();
+        canvasGroup.alpha = 0;
     }
 
-    void Start() 
+    void OnEnable()
     {
+        StartCoroutine(OnEnableCoroutine());
+    }
+
+    IEnumerator OnEnableCoroutine()
+    {
+        yield return new WaitUntil(() => SceneLoader.Instance != null);
         SceneLoader.Instance.OnSceneLoadingStarted += SceneLoader_OnSceneLoadingStarted;
         SceneLoader.Instance.OnSceneLoadingProgressChanged += SceneLoader_OnSceneLoadingProgressChanged;
         SceneLoader.Instance.OnSceneLoadingCompleted += SceneLoader_OnSceneLoadingCompleted;
+    }
+
+    private void OnDisable()
+    {
+        SceneLoader.Instance.OnSceneLoadingStarted -= SceneLoader_OnSceneLoadingStarted;
+        SceneLoader.Instance.OnSceneLoadingProgressChanged -= SceneLoader_OnSceneLoadingProgressChanged;
+        SceneLoader.Instance.OnSceneLoadingCompleted -= SceneLoader_OnSceneLoadingCompleted;
     }
 
     private void SceneLoader_OnSceneLoadingCompleted(object sender, Vector2 e)
