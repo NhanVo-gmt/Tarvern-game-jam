@@ -34,6 +34,8 @@ public class Player : SingletonObject<Player>
     #endregion
 
     [SerializeField] PlayerData data;
+    [SerializeField] private float explosionForce = 2f;
+
     StateMachine stateMachine;
     Core core;
     public InputManager inputManager {get; private set;}
@@ -140,9 +142,30 @@ public class Player : SingletonObject<Player>
 
     #endregion
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            ExplodeEnemy(other.gameObject);
+        }
+    }
+
+    private void ExplodeEnemy(GameObject enemy)
+    {
+        Rigidbody2D enemyRigidbody = enemy.GetComponent<Rigidbody2D>();
+
+        if (enemyRigidbody != null)
+        {
+            Vector2 explosionDirection = (enemy.transform.position - transform.position).normalized;
+            enemyRigidbody.AddForce(explosionDirection * explosionForce, ForceMode2D.Impulse);
+        }
+
+        Destroy(enemy);
+    }
+
     #region On Draw Gizmos
-    
-    
+
+
     private void OnDrawGizmosSelected() 
     {
         Gizmos.color = Color.red;
