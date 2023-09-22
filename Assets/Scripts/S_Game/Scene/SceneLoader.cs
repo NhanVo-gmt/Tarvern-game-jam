@@ -25,11 +25,11 @@ public class SceneLoader : SingletonObject<SceneLoader>
 
     public void ChangeScene(Scene scene, Vector2 position)
     {
-        StartCoroutine(ChangeSceneCoroutine(scene));
+        StartCoroutine(LoadSceneCoroutine(scene));
         spawnPos = position;
     }
 
-    IEnumerator ChangeSceneCoroutine(Scene scene)
+    IEnumerator LoadSceneCoroutine(Scene scene)
     {
         OnSceneLoadingStarted?.Invoke(this, EventArgs.Empty);
 
@@ -46,13 +46,20 @@ public class SceneLoader : SingletonObject<SceneLoader>
         {
             OnSceneLoadingProgressChanged?.Invoke(this, loadingOperation.progress);
         }
-        else 
+        else
         {
-            OnSceneLoadingCompleted?.Invoke(this, spawnPos);
             loadingOperation = null;
-
-            Player.Instance.transform.position = spawnPos;
+            StartCoroutine(CompleteLoadSceneCoroutine());
         }
     }
 
+
+    IEnumerator CompleteLoadSceneCoroutine()
+    {
+        Player.Instance.transform.position = spawnPos;
+        
+        yield return new WaitForSeconds(1f);
+        
+        OnSceneLoadingCompleted?.Invoke(this, spawnPos);
+    }
 }
