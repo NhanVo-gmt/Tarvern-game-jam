@@ -18,8 +18,14 @@ public class Bat : MonoBehaviour
     private BatState currentState = BatState.Idle;
     private bool canChangeState = true;
 
+    private Vector2 startPos;
     private Vector2 destination;
-    
+
+    private void Awake()
+    {
+        startPos = transform.position;
+    }
+
     private void Update()
     {
         ChangeState();
@@ -37,7 +43,7 @@ public class Bat : MonoBehaviour
 
     private void SetRandomDestination()
     {
-        destination = Random.insideUnitCircle * rangeFly;
+        destination = Random.insideUnitCircle * rangeFly + startPos;
     }
 
     void Move()
@@ -61,5 +67,10 @@ public class Bat : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         canChangeState = true;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, rangeFly);
     }
 }
