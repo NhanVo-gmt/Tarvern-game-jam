@@ -25,6 +25,13 @@ public class HitState : State
         movement.SetVelocityZero();
     }
 
+    public override void LogicsUpdate()
+    {
+        base.LogicsUpdate();
+        
+        
+    }
+
     public override void AnimationFinishTrigger()
     {
         base.AnimationFinishTrigger();

@@ -21,17 +21,15 @@ public class Player : SingletonObject<Player>
 
     int dashId = Animator.StringToHash("Dash");
     int idleId = Animator.StringToHash("Idle");
-    int inAirId = Animator.StringToHash("In Air");
     int hitId = Animator.StringToHash("Hit");
-    int jumpId = Animator.StringToHash("Jump");
-    int meleeAttackId = Animator.StringToHash("Melee Attack");
-    int moveId = Animator.StringToHash("Move");
+    int moveId = Animator.StringToHash("Run");
 
     #endregion
 
     #region Core Component
 
-    InteractionController interactionController;
+    private Health health;
+    private Combat combat;
 
     #endregion
 
@@ -50,6 +48,34 @@ public class Player : SingletonObject<Player>
         core = GetComponentInChildren<Core>();
     }
 
+    private void OnEnable()
+    {
+        StartCoroutine(OnEnableCoroutine());
+    }
+
+    IEnumerator OnEnableCoroutine()
+    {
+        yield return new WaitUntil(() => core.GetCoreComponent<Health>() != null);
+        health = core.GetCoreComponent<Health>();
+        health.onDie += OnResetPlayer;
+
+        combat = core.GetCoreComponent<Combat>();
+    }
+
+    private void OnDisable()
+    {
+        health.onDie -= OnResetPlayer;
+    }
+
+    private void OnResetPlayer()
+    {
+        transform.position = GameSettings.Instance.CheckPoint.position;
+        SetUpHealthComponent();
+        combat.EnableCollider();
+
+        stateMachine.ChangeState(idleState);
+    }
+
     void Start() 
     {
         CreateState();
@@ -65,24 +91,20 @@ public class Player : SingletonObject<Player>
         
         dashState = new DashState(this, core, stateMachine, data, dashId);
         idleState = new IdleState(this, core, stateMachine, data, idleId);
-        inAirState = new InAirState(this, core, stateMachine, data, inAirId);
         hitState = new HitState(this, core, stateMachine, data, hitId);
-        jumpState = new JumpState(this, core, stateMachine, data, jumpId);
         moveState = new MoveState(this, core, stateMachine, data, moveId);
-        meleeAttackState = new MeleeAttackState(this, core, stateMachine, data, meleeAttackId);
     }
 
     void GetCoreComponent()
     {
-        interactionController = core.GetCoreComponent<InteractionController>();
-        
         SetUpCombatComponent(core.GetCoreComponent<Combat>());
-        SetUpHealthComponent(core.GetCoreComponent<Health>());
+        SetUpHealthComponent();
         SetUpRecoveryComponent(core.GetCoreComponent<RecoveryController>());
     }
 
-    void SetUpHealthComponent(Health health)
+    void SetUpHealthComponent()
     {
+        if (health == null) health = core.GetCoreComponent<Health>();
         health.SetHealth(data.healthData);
     }
 
@@ -106,33 +128,6 @@ public class Player : SingletonObject<Player>
     void FixedUpdate() 
     {
         stateMachine.FixedUpdate();
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        SetConversation(other);
-    }
-
-    private void OnTriggerExit2D(Collider2D other) {
-        UnsetConversation(other);
-    }
-
-    private void SetConversation(Collider2D other)
-    {
-        DialogueHolder npcDialogue = other.GetComponent<DialogueHolder>();
-        if (npcDialogue != null)
-        {
-            interactionController.SetDialogue(npcDialogue.GetDialogue());
-        }
-    }
-
-    private void UnsetConversation(Collider2D other)
-    {
-        DialogueHolder npcDialogue = other.GetComponent<DialogueHolder>();
-        if (npcDialogue != null)
-        {
-            interactionController.UnsetDialogue(npcDialogue.GetDialogue());
-        }
     }
 
 
