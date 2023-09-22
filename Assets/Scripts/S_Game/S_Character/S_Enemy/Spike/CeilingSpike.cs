@@ -8,6 +8,8 @@ public class CeilingSpike : MonoBehaviour
     [SerializeField] private CeilingSpikeTrigger trigger;
     private bool isDrop = false;
 
+    [SerializeField] private float dropSpeed = 8f;
+
     private Animator anim;
 
     private void Awake()
@@ -39,7 +41,7 @@ public class CeilingSpike : MonoBehaviour
 
     private void DropSpike()
     {
-        transform.Translate(Vector2.down * 5 * Time.deltaTime);
+        transform.Translate(Vector2.down * dropSpeed * Time.deltaTime);
     }
 
     private void Update()

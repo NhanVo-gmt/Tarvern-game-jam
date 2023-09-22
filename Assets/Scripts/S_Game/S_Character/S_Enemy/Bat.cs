@@ -71,6 +71,6 @@ public class Bat : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(startPos, rangeFly);
+        Gizmos.DrawWireSphere(transform.position, rangeFly);
     }
 }
