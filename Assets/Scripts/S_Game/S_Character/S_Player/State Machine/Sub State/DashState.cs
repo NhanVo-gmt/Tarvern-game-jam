@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DashState : AbilityState
 {
-
+    private float dashTime = .3f;
     float lastActiveTime;
     
     public DashState(Player player, Core core, StateMachine stateMachine, PlayerData data, int animId) : base(player, core, stateMachine, data, animId)
@@ -23,17 +23,12 @@ public class DashState : AbilityState
 
         lastActiveTime = Time.time;
 
-        movement.SetVelocityX(movement.faceDirection.x * data.dashData.initialVelocity);
-
-        SpawnVFX();
+        movement.SetVelocity(player.inputManager.movementInput * data.dashData.initialVelocity);
 
         combat.DisableCollider();
+        
     }
-
-    private void SpawnVFX()
-    {
-        vfx.SpawnPooledPrefab(data.dashData.vfx);
-    }
+    
 
     public override void Exit() 
     {
@@ -48,25 +43,10 @@ public class DashState : AbilityState
     public override void LogicsUpdate()
     {
         base.LogicsUpdate();
-
-        if (player.inputManager.movementInput.x * movement.faceDirection.x == -1)
+        
+        if (Time.time >= lastActiveTime + dashTime)
         {
-            if (collisionSenses.isGround)
-            {
-                stateMachine.ChangeState(player.moveState);
-            }
-            else
-            {
-                stateMachine.ChangeState(player.inAirState);
-            }
-        }
-        else if (player.inputManager.jumpInput && collisionSenses.isGround)
-        {
-            stateMachine.ChangeState(player.jumpState);
-        }
-        else if (player.inputManager.meleeAttackInput && player.meleeAttackState.CanAttack())
-        {
-            stateMachine.ChangeState(player.meleeAttackState);
+            stateMachine.ChangeState(player.idleState);
         }
     }
 

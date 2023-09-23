@@ -35,17 +35,15 @@ public class Health : CoreComponent
     
     public void TakeDamage(int damage)
     {
-        if (health <= 0 || IsInvulnerable()) return;
+        if (health <= 0) return;
 
         health -= damage;
 
         onUpdateHealth?.Invoke(health);
 
-        if (health > 0)
-        {
-            TakeDamage();
-        }
-        else
+        TakeDamage();
+        
+        if (health <= 0)
         {
             Die();
         }
@@ -63,8 +61,13 @@ public class Health : CoreComponent
 
     private void Die()
     {
+        StartCoroutine(DieCoroutine());
+    }
+
+    IEnumerator DieCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
         isDie = true;
         onDie?.Invoke();
     }
-
 }

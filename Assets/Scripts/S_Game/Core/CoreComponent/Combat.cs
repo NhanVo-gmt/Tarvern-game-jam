@@ -106,7 +106,7 @@ public class Combat : CoreComponent, IDamageable
         {
             hitDirection = attackDirection;
         }
-
+        
         health.TakeDamage(damage);
     }
 

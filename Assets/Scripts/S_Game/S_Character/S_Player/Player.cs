@@ -39,6 +39,8 @@ public class Player : SingletonObject<Player>
     Core core;
     public InputManager inputManager {get; private set;}
 
+    public Action OnPlayerRespawn;
+
     #region Set up
     
     protected override void Awake() 
@@ -74,6 +76,7 @@ public class Player : SingletonObject<Player>
         SetUpHealthComponent();
         combat.EnableCollider();
 
+        OnPlayerRespawn?.Invoke();
         stateMachine.ChangeState(idleState);
     }
 

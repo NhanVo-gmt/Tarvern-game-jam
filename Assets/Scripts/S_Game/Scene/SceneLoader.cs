@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : SingletonObject<SceneLoader>
 {
     public enum Scene {
-        FarmScene,
-        ForestScene,
+        MenuScene,
+        GameScene
     }
 
     public EventHandler OnSceneLoadingStarted;

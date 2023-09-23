@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    ProjectileData data;
+    [SerializeField] private float velocity = 5f;
     Vector2 direction;
 
     Rigidbody2D rb;
@@ -15,9 +15,18 @@ public class Projectile : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Initialize(ProjectileData data, Vector2 direction)
+    private void OnEnable()
     {
-        this.data = data;
+        SelfDestroy();
+    }
+
+    private void SelfDestroy()
+    {
+        GetComponent<PooledObject>().Initialize(2f);
+    }
+
+    public void Initialize(Vector2 direction)
+    {
         this.direction = direction;
     }
 
@@ -27,7 +36,7 @@ public class Projectile : MonoBehaviour
 
     private void Move()
     {
-        rb.velocity = direction * data.velocity;
+        rb.velocity = direction * velocity;
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -36,4 +45,6 @@ public class Projectile : MonoBehaviour
             target.TakeDamage(1, IDamageable.DamagerTarget.Enemy, direction); //hardcode
         }
     }
+    
+    
 }
