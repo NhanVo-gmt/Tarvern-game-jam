@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Trap : MonoBehaviour
+public class Trap : MonoBehaviour, IBreakable
 {
-    [SerializeField] bool NeedToResetPlayerPosition;
-
-
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.TryGetComponent<IDamageable>(out IDamageable target))
         {

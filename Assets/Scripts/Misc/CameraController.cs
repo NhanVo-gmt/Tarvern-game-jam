@@ -21,6 +21,7 @@ namespace Knight.Camera
 
         void CalculateCamHeight()
         {
+            if (Player.Instance == null) return;
             camHeight = cam.transform.position.y - Player.Instance.transform.position.y;
         }
 

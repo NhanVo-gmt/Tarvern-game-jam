@@ -56,11 +56,6 @@ public abstract class State
         stateMachine.ChangeState(player.hitState);
     }
 
-    void ChangeToDieState()
-    {
-
-    }
-
     public virtual void Exit() 
     {
         RemoveEvent();

@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class Slime : MonoBehaviour
+public class Slime : MonoBehaviour, IBreakable
 {
     [SerializeField] private Projectile projectilePrefab;
     [SerializeField] private float fireRate;
@@ -18,6 +19,7 @@ public class Slime : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        timeSinceLastShot = Random.Range(1, 4);
     }
 
     private void Update()
