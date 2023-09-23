@@ -34,6 +34,7 @@ public class Player : SingletonObject<Player>
     #endregion
 
     [SerializeField] PlayerData data;
+    [SerializeField] private Animator explosionAnimator;
     StateMachine stateMachine;
     Core core;
     public InputManager inputManager {get; private set;}
@@ -130,6 +131,27 @@ public class Player : SingletonObject<Player>
         stateMachine.FixedUpdate();
     }
 
+    #region Player Explode
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            ExplodeEnemy(other.gameObject);
+        }
+    }
+
+    private void ExplodeEnemy(GameObject enemy)
+    {
+
+        if (explosionAnimator != null)
+        {
+            // Trigger the explosion animation
+            explosionAnimator.SetTrigger("Explode");
+        }
+
+        Destroy(enemy);
+    }
+    #endregion
 
     #region Get 
 
