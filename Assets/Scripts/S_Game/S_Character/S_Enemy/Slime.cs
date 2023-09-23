@@ -40,7 +40,7 @@ public class Slime : MonoBehaviour
         anim.SetTrigger("shoot");
         yield return new WaitForSeconds(.4f);
         
-        GameObject projectile = Instantiate(projectilePrefab.gameObject, shootPos.position, Quaternion.identity);
+        GameObject projectile = ObjectPoolSpawnController.Instance.SpawnPooledPrefab(projectilePrefab.gameObject, shootPos.position, Quaternion.identity);
         projectile.GetComponent<Projectile>().Initialize(shootDirection);
     }
 }

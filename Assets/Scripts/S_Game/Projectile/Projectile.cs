@@ -15,6 +15,16 @@ public class Projectile : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    private void OnEnable()
+    {
+        SelfDestroy();
+    }
+
+    private void SelfDestroy()
+    {
+        GetComponent<PooledObject>().Initialize(2f);
+    }
+
     public void Initialize(Vector2 direction)
     {
         this.direction = direction;
@@ -35,4 +45,6 @@ public class Projectile : MonoBehaviour
             target.TakeDamage(1, IDamageable.DamagerTarget.Enemy, direction); //hardcode
         }
     }
+    
+    
 }
