@@ -14,7 +14,7 @@ public class LoadingUI : MonoBehaviour
     bool isLoading;
 
     void Awake() {
-        canvasGroup = GetComponent<CanvasGroup>();
+        canvasGroup = GetComponentInChildren<CanvasGroup>();
         canvasGroup.alpha = 0;
     }
 

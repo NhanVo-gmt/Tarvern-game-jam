@@ -57,6 +57,7 @@ public class Health : CoreComponent
     void TakeDamage()
     {
         onTakeDamage?.Invoke();
+        CinemachineShake.Shake(1f, 2f, 1f);
     }
 
     private void Die()

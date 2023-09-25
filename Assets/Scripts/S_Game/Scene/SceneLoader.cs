@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Object = System.Object;
 
 public class SceneLoader : SingletonObject<SceneLoader>
 {
@@ -23,8 +25,17 @@ public class SceneLoader : SingletonObject<SceneLoader>
         base.Awake();
     }
 
-    public void ChangeScene(Scene scene, Vector2 position)
+    protected override void DestroyInMenu(UnityEngine.SceneManagement.Scene scene, LoadSceneMode arg1)
     {
+        // do not destroy
+    }
+
+    public void ChangeScene(Scene scene, Vector2 position = new Vector2())
+    {
+        if (scene == Scene.MenuScene)
+        {
+            Destroy(Player.Instance);
+        }
         StartCoroutine(LoadSceneCoroutine(scene));
         spawnPos = position;
     }
@@ -56,7 +67,8 @@ public class SceneLoader : SingletonObject<SceneLoader>
 
     IEnumerator CompleteLoadSceneCoroutine()
     {
-        Player.Instance.transform.position = spawnPos;
+        if (Player.Instance != null)
+            Player.Instance.transform.position = spawnPos;  
         
         yield return new WaitForSeconds(1f);
         

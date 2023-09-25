@@ -56,6 +56,8 @@ public class CeilingSpike : MonoBehaviour
         isDrop = false;
         
         anim.SetBool("IsBreak", true);
+        CinemachineShake.Shake(1f, 2f, 1f);
         Destroy(gameObject, 1f);
     }
+
 }
