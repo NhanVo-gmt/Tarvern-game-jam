@@ -21,7 +21,8 @@ public class Checkpoint : MonoBehaviour
 
     private void OnDisable()
     {
-        player.OnPlayerRespawn -= OnPlayerRespawn;
+        if (player != null)
+            player.OnPlayerRespawn -= OnPlayerRespawn;
     }
 
     private void OnPlayerRespawn()

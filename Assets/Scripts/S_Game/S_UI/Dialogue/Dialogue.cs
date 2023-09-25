@@ -13,14 +13,14 @@ public class Dialogue : ScriptableObject, ISerializationCallbackReceiver
 
     Vector2 spawnOffset = new Vector2(250, 0);
 
-    private void Awake() {
 #if UNITY_EDITOR
+    private void Awake() {
         if (nodeList.Count == 0)
         {
             rootNode = CreateNode();
             AddNode(rootNode);
         }
-#endif
+
     }
 
     
@@ -76,6 +76,7 @@ public class Dialogue : ScriptableObject, ISerializationCallbackReceiver
         Undo.DestroyObjectImmediate(nodeToDelete);
 
     }
+#endif
 
     public IEnumerable<DialogueNode> GetAllChildren(DialogueNode parent)
     {
@@ -87,6 +88,7 @@ public class Dialogue : ScriptableObject, ISerializationCallbackReceiver
             }
         }
     }
+
 
     public DialogueNode GetRootNode()
     {
@@ -118,6 +120,7 @@ public class Dialogue : ScriptableObject, ISerializationCallbackReceiver
 
     void OnValidate()
     {
+        #if UNITY_EDITOR
         string path = AssetDatabase.GetAssetPath(this);
         if (path != "")
         {
@@ -130,10 +133,12 @@ public class Dialogue : ScriptableObject, ISerializationCallbackReceiver
                 }
             }
         }
+        #endif
     }
 
     public void OnAfterDeserialize()
     {
 
     }
+
 }

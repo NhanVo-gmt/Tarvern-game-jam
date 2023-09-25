@@ -4,16 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoadingUI : MonoBehaviour
+public class LoadingUI : SingletonObject<LoadingUI>
 {
     [SerializeField] Slider slider;
 
     CanvasGroup canvasGroup;
 
     Coroutine LoadCoroutine;
-    bool isLoading;
-
-    void Awake() {
+    private bool isLoading;
+    
+    protected override void Awake() {
+        base.Awake();
+        
         canvasGroup = GetComponentInChildren<CanvasGroup>();
         canvasGroup.alpha = 0;
     }

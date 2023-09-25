@@ -10,7 +10,8 @@ public class SceneLoader : SingletonObject<SceneLoader>
 {
     public enum Scene {
         MenuScene,
-        GameScene
+        GameScene,
+        EndScene
     }
 
     public EventHandler OnSceneLoadingStarted;
@@ -32,7 +33,7 @@ public class SceneLoader : SingletonObject<SceneLoader>
 
     public void ChangeScene(Scene scene, Vector2 position = new Vector2())
     {
-        if (scene == Scene.MenuScene)
+        if (scene != Scene.GameScene)
         {
             Destroy(Player.Instance);
         }
